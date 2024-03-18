@@ -4,7 +4,10 @@ from django.conf import settings
 
 
 class User(AbstractUser):
-    pass
+    name = models.CharField(max_length=100, default='Not Provided')
+    email = models.EmailField(unique=True)
+    bio = models.TextField(blank=True)
+    location = models.CharField(max_length=100, blank=True)
 
 class Event(models.Model):
     eventCategory = models.CharField(max_length=100)
@@ -15,3 +18,5 @@ class Event(models.Model):
 
     def __str__(self):
         return self.eventCategory
+
+    
