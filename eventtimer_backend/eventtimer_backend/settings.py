@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 import dj_database_url
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,13 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-f2lwj@2%$f_f#pb&0+#3(9(0&ds-8%_t43*37s(@k5t3mrr@*$'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['8000-grumpyrobot-eventtimerd-q4a8nnlurza.ws-eu110.gitpod.io']
 
+CSRF_TRUSTED_ORIGINS = ['https://8000-grumpyrobot-eventtimerd-q4a8nnlurza.ws-eu110.gitpod.io']
 
 # Application definition
 
@@ -81,11 +85,8 @@ AUTH_USER_MODEL = 'api.User'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://tpgtftkw:54crBiZZD6Snp5nWdRqyat9TUF1U_0DC@flora.db.elephantsql.com/tpgtftkw')
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
