@@ -1,1 +1,1 @@
-web: gunicorn eventtimer_db.wsgi --log-file -
+web: gunicorn eventtimer_backend.wsgi --log-file -

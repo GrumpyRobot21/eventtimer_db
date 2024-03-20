@@ -32,9 +32,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-grumpyrobot-eventtimerd-q4a8nnlurza.ws-eu110.gitpod.io']
+ALLOWED_HOSTS = ['8000-grumpyrobot-eventtimerd-q4a8nnlurza.ws-eu110.gitpod.io', 'eventtimerdb.herokuapp.com']
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-grumpyrobot-eventtimerd-q4a8nnlurza.ws-eu110.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-grumpyrobot-eventtimerd-q4a8nnlurza.ws-eu110.gitpod.io', 'https://eventtimerdb.herokuapp.com']
 
 # Application definition
 
@@ -98,7 +98,7 @@ REST_FRAMEWORK = {
 }  
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',  # Update with your React app's URL
+    'http://localhost:3000','https://eventtimerdb.herokuapp.com'  
 ]
 
 # Password validation
