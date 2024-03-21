@@ -14,6 +14,7 @@ import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 import django_heroku
+import re
 
 load_dotenv()
 
@@ -32,9 +33,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['8000-grumpyrobot-eventtimerd-q4a8nnlurza.ws-eu110.gitpod.io', 'eventtimerdb.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'eventtimerdb.herokuapp.com']
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-grumpyrobot-eventtimerd-q4a8nnlurza.ws-eu110.gitpod.io', 'https://eventtimerdb.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = [os.environ.get('ALLOWED_HOST'),
+   'localhost',]
 
 # Application definition
 
@@ -63,14 +65,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if 'CLIENT_ORIGIN' in os.environ:
-     CORS_ALLOWED_ORIGINS = [
-         os.environ.get('CLIENT_ORIGIN')
-     ]
-else:
-     CORS_ALLOWED_ORIGIN_REGEXES = [
-         r"^https://.*\.gitpod\.io$",
-     ]
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+    ]
 
 ROOT_URLCONF = 'eventtimer_backend.urls'
 
