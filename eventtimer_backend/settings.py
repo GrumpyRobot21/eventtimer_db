@@ -105,7 +105,7 @@ REST_FRAMEWORK = {
 }  
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000','https://eventtimerdb.herokuapp.com'  
+    'http://localhost:3000','https://eventtimerdb.herokuapp.com', 'https://eventtimer-frontend.herokuapp.com', 
 ]
 
 # Password validation
