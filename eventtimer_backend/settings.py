@@ -103,15 +103,15 @@ REST_FRAMEWORK = {
     ],
 }  
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'https://eventtimerdb.herokuapp.com', 
-    'https://eventtimer-frontend.herokuapp.com', 
-    'https://eventtimer-4c0817d30986.herokuapp.com',
-]
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:3000',
+#     'https://eventtimerdb.herokuapp.com', 
+#     'https://eventtimer-frontend.herokuapp.com', 
+#     'https://eventtimer-4c0817d30986.herokuapp.com',
+# ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://eventtimer-4c0817d30986.herokuapp.com',  
+    'https://eventtimer-4c0817d30986.herokuapp.com/',  
 ]
 
 CORS_ALLOW_CREDENTIALS = True
