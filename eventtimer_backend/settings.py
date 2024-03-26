@@ -33,8 +33,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'eventtimerdb.herokuapp.com']
 
-CSRF_TRUSTED_ORIGINS = [os.environ.get('ALLOWED_HOST'),
-   'localhost',]
+CSRF_TRUSTED_ORIGINS = [os.environ.get('ALLOWED_HOST', 'https://eventtimer-4c0817d30986.herokuapp.com'), 'http://localhost',]
 
 # Application definition
 
@@ -56,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
