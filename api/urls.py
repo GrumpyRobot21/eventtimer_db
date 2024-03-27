@@ -1,11 +1,12 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import SimpleRouter
+from .views import UserRegistrationViewSet, EventViewSet, UserProfileViewSet
+
+router = SimpleRouter(trailing_slash=False)
+router.register(r'register', UserRegistrationViewSet, basename='user-register')
+router.register(r'events', EventViewSet, basename='events')
+router.register(r'profile', UserProfileViewSet, basename='profile')
 
 urlpatterns = [
-    path('register/', views.UserRegistrationView.as_view(), name='user-register'),
-    path('events/', views.EventListCreateView.as_view(), name='event-list-create'),
-    path('events/<int:pk>/', views.EventRetrieveUpdateDestroyView.as_view(), name='event-retrieve-update-destroy'),
-    path('profile/', views.UserProfileView.as_view(), name='user-profile'),
-    path('change-password/', views.ChangePasswordView.as_view(), name='change-password'),
-    path('delete-profile/', views.DeleteProfileView.as_view(), name='delete-profile'),
+    path('', include(router.urls)),
 ]
