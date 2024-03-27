@@ -10,15 +10,15 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'password', 'name')
 
     def create(self, validated_data):
-    email = validated_data['email']
-    username = email.split('@')[0]  # Extract the username from the email
-    user = User.objects.create_user(
-        username=username,
-        email=email,
-        password=validated_data['password'],
-        name=validated_data['name']
-    )
-    return user
+        email = validated_data['email']
+        username = email.split('@')[0]  # Extract the username from the email
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=validated_data['password'],
+            name=validated_data['name']
+        )
+        return user
 
 class EventSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
