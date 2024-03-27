@@ -114,6 +114,8 @@ CORS_ALLOWED_ORIGINS = [
     'https://eventtimer-4c0817d30986.herokuapp.com',  
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = [
