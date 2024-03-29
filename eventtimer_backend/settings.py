@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Corrected typo here
+    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -110,7 +110,7 @@ REST_FRAMEWORK = {
 # ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://eventtimer-4c0817d30986.herokuapp.com',  
+    'https://eventtimer-4c0817d30986.herokuapp.com/',  
 ]
 
 # CORS_ORIGIN_ALLOW_ALL = False
