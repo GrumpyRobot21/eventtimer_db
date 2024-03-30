@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from .models import User, Event
+import logging
 
 class UserSerializer(serializers.ModelSerializer):
+    logger = logging.getLogger(__name__)
     password = serializers.CharField(write_only=True)
     name = serializers.CharField(required=True)
 
@@ -10,6 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'password', 'name')
 
     def create(self, validated_data):
+        self.logger.debug(f"Creating user with data: {validated_data}")
         email = validated_data['email']
         username = email.split('@')[0]  # Extract the username from the email
         user = User.objects.create_user(
@@ -18,6 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             name=validated_data['name']
         )
+        self.logger.debug(f"User created: {user}")
         return user
 
 class EventSerializer(serializers.ModelSerializer):

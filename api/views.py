@@ -4,14 +4,19 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import action
 from .models import User, Event
 from .serializers import UserSerializer, EventSerializer, UserProfileSerializer, ChangePasswordSerializer
+import logging
 
 class UserRegistrationViewSet(viewsets.ViewSet):
+    logger = logging.getLogger(__name__)
     permission_classes = (permissions.AllowAny,)
 
     def create(self, request):
+        self.logger.debug(f"Received registration request: {request.data}")
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
+            self.logger.debug("Serializer is valid")
             user = serializer.save()
+            self.logger.debug(f"User created: {user}")
             refresh = RefreshToken.for_user(user)
             return Response({
                 'refresh': str(refresh),
