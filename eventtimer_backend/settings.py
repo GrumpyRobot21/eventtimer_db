@@ -32,7 +32,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', os.environ.get('ALLOWED_HOST'),]
+ALLOWED_HOSTS = [
+   os.environ.get('ALLOWED_HOST'),
+   'localhost',
+] 
+
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+    ]
 
 CORS_ALLOWED_HEADERS = list(default_headers)
 CORS_ALLOWED_METHODS = list(default_methods)
