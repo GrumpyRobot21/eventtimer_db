@@ -116,8 +116,8 @@ REST_FRAMEWORK = {
     ],
 }  
 
-# # CORS settings
-# CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'https://eventtimer-4c0817d30986.herokuapp.com').split(',')
+
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'https://eventtimer-4c0817d30986.herokuapp.com').split(',')
 # CORS_ALLOWED_METHODS = os.environ.get('CORS_ALLOWED_METHODS', 'GET,POST,PUT,DELETE,OPTIONS').split(',')
 # CORS_ALLOWED_HEADERS = os.environ.get('CORS_ALLOWED_HEADERS', 'Content-Type,Authorization').split(',')
 
