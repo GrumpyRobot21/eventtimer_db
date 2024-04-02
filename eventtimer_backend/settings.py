@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-     'corsheaders.middleware.CorsMiddleware',  
+    'corsheaders.middleware.CorsMiddleware',  
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -102,39 +102,10 @@ REST_FRAMEWORK = {
     ],
 }  
 
-# CORS_ORIGIN_WHITELIST = [
-#     'http://localhost:3000',
-#     'https://eventtimerdb.herokuapp.com', 
-#     'https://eventtimer-frontend.herokuapp.com', 
-#     'https://eventtimer-4c0817d30986.herokuapp.com',
-# ]
-
-CORS_ALLOWED_ORIGINS = [
-    'https://eventtimer-4c0817d30986.herokuapp.com', 
-]
-
-# CORS_ORIGIN_ALLOW_ALL = False
-
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-]
-
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
+# CORS settings
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'https://eventtimer-4c0817d30986.herokuapp.com').split(',')
+CORS_ALLOWED_METHODS = os.environ.get('CORS_ALLOWED_METHODS', 'GET,POST,PUT,DELETE,OPTIONS').split(',')
+CORS_ALLOWED_HEADERS = os.environ.get('CORS_ALLOWED_HEADERS', 'Content-Type,Authorization').split(',')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
