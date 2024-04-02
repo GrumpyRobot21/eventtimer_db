@@ -46,6 +46,10 @@ class EventViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    def options(self, request, *args, **kwargs):
+        # Handle OPTIONS request for CORS preflight
+        return Response(status=status.HTTP_200_OK)
+
 class UserProfileViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -74,3 +78,7 @@ class UserProfileViewSet(viewsets.ViewSet):
     def delete_profile(self, request):
         request.user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def options(self, request, *args, **kwargs):
+        # Handle OPTIONS request for CORS preflight
+        return Response(status=status.HTTP_200_OK)
