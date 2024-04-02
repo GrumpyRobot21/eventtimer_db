@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -23,6 +24,10 @@ class UserRegistrationViewSet(viewsets.ViewSet):
                 'access': str(refresh.access_token),
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def options(self, request, *args, **kwargs):
+        # Handle OPTIONS request for CORS preflight
+        return Response(status=status.HTTP_200_OK)
 
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
