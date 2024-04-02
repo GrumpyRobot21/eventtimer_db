@@ -15,6 +15,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import django_heroku
 import re
+from corsheaders.defaults import defaultheaders, default_methods
 
 load_dotenv()
 
@@ -31,9 +32,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'eventtimerdb.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', os.environ.get('ALLOWED_HOST'),]
 
-CSRF_TRUSTED_ORIGINS = [os.environ.get('ALLOWED_HOST', 'https://eventtimer-4c0817d30986.herokuapp.com'), 'http://localhost',]
+CORS_ALLOWED_HEADERS = list(default_headers)
+CORS_ALLOWED_METHODS = list(default_methods)
+CSRF_TRUSTED_ORIGINS = [os.environ.get('CLIENT_ORIGIN_DEV', 'CLIENT_ORIGIN')]
 
 # Application definition
 
@@ -46,9 +49,16 @@ INSTALLED_APPS = [
     'corsheaders',
     'django.contrib.staticfiles',
     'rest_framework',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'dj_rest_auth.registration',
     'rest_framework_simplejwt',
     'api',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,6 +71,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS =[
+        os.environ.get('CLIENT_ORIGIN')
+    ]
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
     CORS_ALLOWED_ORIGIN_REGEXES = [
@@ -102,10 +116,13 @@ REST_FRAMEWORK = {
     ],
 }  
 
-# CORS settings
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'https://eventtimer-4c0817d30986.herokuapp.com').split(',')
-CORS_ALLOWED_METHODS = os.environ.get('CORS_ALLOWED_METHODS', 'GET,POST,PUT,DELETE,OPTIONS').split(',')
-CORS_ALLOWED_HEADERS = os.environ.get('CORS_ALLOWED_HEADERS', 'Content-Type,Authorization').split(',')
+# # CORS settings
+# CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'https://eventtimer-4c0817d30986.herokuapp.com').split(',')
+# CORS_ALLOWED_METHODS = os.environ.get('CORS_ALLOWED_METHODS', 'GET,POST,PUT,DELETE,OPTIONS').split(',')
+# CORS_ALLOWED_HEADERS = os.environ.get('CORS_ALLOWED_HEADERS', 'Content-Type,Authorization').split(',')
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
