@@ -15,7 +15,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import django_heroku
 import re
-from corsheaders.defaults import defaultheaders, default_methods
+from corsheaders.defaults import default_headers, default_methods
 
 load_dotenv()
 
